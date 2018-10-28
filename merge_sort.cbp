@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void msort(int a[],int p,int r)
+{
+    int q;
+    if(p<r){
+        q=(p+r)/2;
+        msort(a,p,q);
+        msort(a,q+1,r);
+        smerge(a,p,q,r);
+    }
+
+}
+  void smerge(int a[],int p,int q,int r)
+  {
+      int i,j,k;
+      int n1=q-p+1;
+      int n2=r-p;
+      int L[n1+1],R[n2+1];
+
+      for(i=1;i<=n1;i++)
+      {
+          L[i]=a[p+i-1];
+      }
+      for(j=1;j<=n2;j++)
+      {
+          R[j]=a[q+j];
+      }
+      L[n1+1]=32768;
+      R[n2+1]=32768;
+      i=1;j=1;
+      for(k=p;k<=r;k++)
+      {
+          if(L[i]<=R[j])
+          {
+              a[k]=L[i];
+              i++;
+          }
+          else
+          {
+              a[k]=R[j];
+              j++;
+          }
+      }
+}
+
+  void disp(int a[],int k)
+  {
+      int i;
+      for (i=1;i<=k;i++)
+      {
+          printf("%d ",a[i]);
+      }
+  }
+
+
+int main()
+{
+int i,a[15],n;
+printf("Enter the Number Of Elements ");
+scanf("%d",&n);
+printf("Enter Array ");
+for(i=1;i<=n;i++){
+    scanf("%d",&a[i]);
+}
+msort(a,1,n);
+printf("Sorted array is ");
+disp(a,n);
+}
+
